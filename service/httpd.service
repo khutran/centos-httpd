@@ -1,0 +1,15 @@
+[Unit]
+Description=The Apache 2.4.34service
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/apache/logs/nginx.pid
+ExecStartPre=/usr/sbin/httpd -t
+ExecStart=/usr/sbin/httpd
+ExecReload=/usr/sbin/httpd -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
